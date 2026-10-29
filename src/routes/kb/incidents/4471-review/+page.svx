@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 review: two causes behind one known ticket'
 owner: support desk
-status: proposed
+status: closed
 reviewed: 2026-10-29
 signature: 'S01E03 student and Codex — 4471 review'
 ---
@@ -23,8 +23,17 @@ These are observations of the 4 October export, not a live queue total.
 
 Filed findings: [parser issue](https://github.com/Krystek20/mega-s01e03-what-it-shows/issues/1)
 and [form-hint issue](https://github.com/Krystek20/mega-s01e03-what-it-shows/issues/2).
-These tickets record the review; this kb export contains no production booking
-service, so delivering the findings does not establish that either fix shipped.
+These tickets record the review. Engineering's update on the course challenge
+page, shown after the first submission, closes #4471 on 5 October:
+
+- **Parser — fixed:** `fix(dates): parse dd/mm for eu locales`. Close the parser
+  issue as completed, citing that engineering update.
+- **Hint — won't fix:** booking-v3 form retired. Close the hint issue as not
+  planned; retirement removed the affected form, rather than shipping a hint fix.
+
+The export predates that update. Historical reports remain counted as received;
+closure does not remove them. The five timing anomalies below still need care:
+the engineering headline alone does not explain their individual symptoms.
 
 <CauseTable ticket={4471} />
 
@@ -37,7 +46,8 @@ directions, plus dates whose day exceeds twelve.
 order. Following that hint produces the wrong date for day-first tenants. Align
 the displayed hint with the form's interpretation. This affects the form route
 at Alder Physio, Copper Studio and Pale Harbour. Their app and email reports
-still belong to the parser group. Two causes require two fixes and two tickets.
+still belong to the parser group. Two causes require separate dispositions and
+two tickets; engineering later fixed one and retired the affected form for the other.
 
 The export's pages overlap. Deduplicate by report ID before counting; matching
 subjects, repeated export rows and intake labels do not define distinct bugs.
@@ -60,7 +70,8 @@ cause or discard these reports.
 Reports begin in April, before the July bulk merge. Received time measures when
 people reported a problem; merged time measures desk processing. A merge spike
 is not an onset spike. Reports continue after the bulk merge, including the
-October one-day symptom. “Known” and “fix queued” do not establish resolution.
+October one-day symptom. The 5 October engineering update supplies the later
+dispositions; “known” and “fix queued” in the old page did not establish them.
 
 ## Change triage before the next merge
 

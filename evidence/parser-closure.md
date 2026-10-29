@@ -1,0 +1,1 @@
+Engineering disposition, 5 October: parser — FIXED; `fix(dates): parse dd/mm for eu locales`. Source: https://hq.mega.dev/challenges/what-it-shows (new engineering update). Completed is the correct closure reason for this issue. This supersedes the earlier analysis-only closing note. The 379 historical reports and five timing anomalies remain documented.
