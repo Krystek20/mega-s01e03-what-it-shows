@@ -21,6 +21,11 @@ These are observations of the 4 October export, not a live queue total.
 
 ## Separate the fixes
 
+Filed findings: [parser issue](https://github.com/Krystek20/mega-s01e03-what-it-shows/issues/1)
+and [form-hint issue](https://github.com/Krystek20/mega-s01e03-what-it-shows/issues/2).
+These tickets record the review; this kb export contains no production booking
+service, so delivering the findings does not establish that either fix shipped.
+
 <CauseTable ticket={4471} />
 
 **Parser:** the shared parser reads month first for tenants who write day first.
