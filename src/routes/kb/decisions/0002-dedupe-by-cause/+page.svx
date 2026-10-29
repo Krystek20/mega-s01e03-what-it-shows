@@ -1,0 +1,44 @@
+---
+layout: runbook
+title: '0002 · Merge reports by verified cause'
+owner: support desk
+status: proposed
+reviewed: 2026-10-29
+signature: 'S01E03 student and Codex — 4471 review'
+---
+
+<script>
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+</script>
+
+## Context
+
+The rendered [#4471 review](/kb/incidents/4471-review) shows distinct parser and
+form-hint causes merged into one ticket. Subject-only matching in decision 0001
+combines different bugs and separates equivalent reports with different wording.
+Intake tags also disagree with tenant-based classification.
+
+## Proposed replacement for decision 0001
+
+Resolve the tenant's locale and booking-form version, then inspect the channel
+and failure mechanism. Merge reports only when their causes match. A matching
+subject is insufficient; a different subject does not prevent a merge. Missing
+tenant or cause information requires investigation, not an automatic merge.
+Keep a report once per ID and attach all IDs to the cause's ticket.
+
+<DedupeExplorer />
+
+## Consequences and review
+
+Reading and tenant lookup take longer than matching subjects. They preserve
+distinct fixes and trustworthy counts. Keep anomalous one-day reports visible
+even when the current classifier assigns them to parser; classification is not
+proof that every symptom is explained. Compare received and merged timestamps
+separately when reviewing the queue.
+
+This record proposes the replacement; the support desk must accept it. Decision
+0001 remains intact as historical evidence. Until acceptance, suspend automatic
+subject-only merges and review uncertain reports manually.
+
+<RenderStamp {signature} />

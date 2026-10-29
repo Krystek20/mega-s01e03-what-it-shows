@@ -1,0 +1,82 @@
+---
+layout: runbook
+title: '#4471 review: two causes behind one known ticket'
+owner: support desk
+status: proposed
+reviewed: 2026-10-29
+signature: 'S01E03 student and Codex — 4471 review'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+The export contradicts #4471's “one issue, one fix” description. The table below
+counts unique report IDs, resolves each tenant's locale and booking form, and
+classifies by cause. Browser locale and intake tags are clues, not the decision.
+These are observations of the 4 October export, not a live queue total.
+
+## Separate the fixes
+
+<CauseTable ticket={4471} />
+
+**Parser:** the shared parser reads month first for tenants who write day first.
+Harbour Dental's R-41200 describes 7 April turning into 4 July; R-41201 describes
+the reverse. Honor the tenant's explicit input format and test both ambiguous
+directions, plus dates whose day exceeds twelve.
+
+**Hint:** booking-v3 prints `MM/DD/YYYY` while its form reads the tenant's date
+order. Following that hint produces the wrong date for day-first tenants. Align
+the displayed hint with the form's interpretation. This affects the form route
+at Alder Physio, Copper Studio and Pale Harbour. Their app and email reports
+still belong to the parser group. Two causes require two fixes and two tickets.
+
+The export's pages overlap. Deduplicate by report ID before counting; matching
+subjects, repeated export rows and intake labels do not define distinct bugs.
+The component computes the totals and tag disagreements directly from the data.
+
+## Preserve what the classifier does not explain
+
+The desk flagged R-41202, R-41209, R-41236, R-41344 and R-41620 as one-day moves.
+Their bodies include a one-day discrepancy, an invite preceding its booking and
+different days for clients in Lisbon and Toronto. The supplied classifier places
+them under parser by tenant and route; that does not establish that a month/day
+swap explains their symptoms. Keep the IDs and request original inputs, stored
+timestamps, time zones and delivered invites. Do not invent a confirmed third
+cause or discard these reports.
+
+## The queue kept moving
+
+<QueueTimeline ticket={4471} />
+
+Reports begin in April, before the July bulk merge. Received time measures when
+people reported a problem; merged time measures desk processing. A merge spike
+is not an onset spike. Reports continue after the bulk merge, including the
+October one-day symptom. “Known” and “fix queued” do not establish resolution.
+
+## Change triage before the next merge
+
+The accepted subject-only decision remains a historical record.
+[Decision 0002](/kb/decisions/0002-dedupe-by-cause) proposes its replacement,
+and the [triage guide](/kb/triage/dedupe) now flags the rule for review.
+First resolve tenant, locale, channel and form
+version. Merge only when the failure mechanism matches. Same subjects can hide
+different causes, and different subjects can describe the same cause. If the
+tenant or mechanism is unknown, hold for investigation rather than merging.
+
+<DedupeExplorer />
+
+The explorer runs the cause-based rule. Its results contradicted the exported
+triage prose. That page and decision 0001 were reviewed in June 2024;
+the layout's stale warning is a reason to recheck their claims against the
+components, not proof that any individual report is wrong.
+
+Assign an owner to each fix, attach the matching report IDs, and verify the
+rendered page and counts after each export. Review fresh reports by cause before
+closing either ticket. Update the incident narrative and triage guidance through
+a reviewed replacement decision, preserving the accepted record's history.
+
+<RenderStamp {signature} />

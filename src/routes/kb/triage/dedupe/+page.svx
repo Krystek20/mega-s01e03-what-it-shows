@@ -1,0 +1,42 @@
+---
+layout: runbook
+title: 'Triage: duplicate reports'
+owner: support desk
+status: under review
+reviewed: 2026-10-29
+---
+
+<script>
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+</script>
+
+A busy morning brings hundreds of reports about the same thing. We keep one ticket per issue
+and merge every duplicate into it, so engineering sees one thread with a count.
+
+## The rule
+
+A report is a duplicate when its **verified cause matches** an open ticket.
+The [#4471 review](/kb/incidents/4471-review) contradicts the old subject-only
+rule in [decision 0001](/kb/decisions/0001-dedupe-by-subject).
+[Decision 0002](/kb/decisions/0002-dedupe-by-cause) proposes its replacement:
+
+1. resolve the tenant, locale, booking-form version and report channel;
+2. inspect the failure mechanism, using the component's classification as evidence;
+3. merge into a ticket for the same verified cause, regardless of subject wording;
+4. count each report ID once and preserve conflicting or unexplained symptoms.
+
+<Callout>
+Matching subjects do not establish matching causes. Pause automatic subject-only
+merges while the support desk reviews the replacement decision.
+</Callout>
+
+## Try it
+
+<DedupeExplorer />
+
+## When you are unsure
+
+Hold for investigation. Missing tenant information is not evidence of a shared
+cause. Request the input, expected and observed dates, locale, form version and
+timestamps before merging. Escalate symptoms the classifier does not explain.
