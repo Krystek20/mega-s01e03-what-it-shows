@@ -18,7 +18,9 @@ assert.deepEqual(groups.map(({cause, reports}) => [cause, reports.length]), [['p
 assert.ok(unique.every((report) => causeOf(report, tenantOf(report))));
 assert.deepEqual(DEDUPE_CASES.map(({a,b}) => sameCause(a, tenantOf(a), b, tenantOf(b))), [true,false,false,true,false]);
 const html = read('./build/kb/incidents/4471-review.html');
-for (const needle of ['379', '33', '412', '5 reports read as a one-day move', 'received', 'merged into #4471', deskRef('S01E03 student and Codex — 4471 review')]) {
+const signature = read('./src/routes/kb/incidents/4471-review/+page.svx').match(/^signature: '([^']+)'$/m)[1];
+assert.ok(signature.startsWith('v1.'), 'Use the course-issued signature');
+for (const needle of ['379', '33', '412', '5 reports read as a one-day move', 'received', 'merged into #4471', deskRef(signature)]) {
   assert.ok(html.includes(needle), `Rendered page missing ${needle}`);
 }
 assert.ok(!html.includes('no desk ref:'));

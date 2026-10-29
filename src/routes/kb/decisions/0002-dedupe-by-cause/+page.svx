@@ -4,7 +4,7 @@ title: '0002 · Merge reports by verified cause'
 owner: support desk
 status: proposed
 reviewed: 2026-10-29
-signature: 'S01E03 student and Codex — 4471 review'
+signature: 'v1.eyJzdWIiOiIyMDIyIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyOTYxOTMsImV4cCI6MTc5MzM4MjU5M30.RJPESoD6LrYMNUpVRN_wXifapMyvL6yLm26ZisnVFKA'
 ---
 
 <script>
